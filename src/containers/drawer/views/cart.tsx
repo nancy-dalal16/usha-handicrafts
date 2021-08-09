@@ -8,6 +8,7 @@ import NoItem from "./no-item";
 import ArrowLeft from "assets/icons/arrow-left";
 import { CURRENCY } from "helpers/constants";
 import CurrencyFormat from "react-currency-format";
+import Razorpay from "razorpay";
 
 // <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>;
 
