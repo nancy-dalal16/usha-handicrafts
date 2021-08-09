@@ -22,7 +22,6 @@
     "nodemailer": "^6.5.0",
     "overlayscrollbars": "^1.13.1",
     "overlayscrollbars-react": "^0.2.2",
-    "razorpay-package": "^0.0.3",
     "rc-collapse": "^3.1.0",
     "react": "17.0.2",
     "react-currency-format": "^1.0.0",
