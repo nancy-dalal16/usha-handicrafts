@@ -1,13 +1,15 @@
-import { useContext } from 'react';
-import { Scrollbar } from 'components/scrollbar';
-import { useCart } from 'contexts/cart/cart.provider';
-import { DrawerContext } from 'contexts/drawer/drawer.provider';
-import CartItem from 'components/cart-item';
-import Button from 'components/button';
-import NoItem from './no-item';
-import ArrowLeft from 'assets/icons/arrow-left';
-import { CURRENCY } from 'helpers/constants';
-import CurrencyFormat from 'react-currency-format';
+import { useContext } from "react";
+import { Scrollbar } from "components/scrollbar";
+import { useCart } from "contexts/cart/cart.provider";
+import { DrawerContext } from "contexts/drawer/drawer.provider";
+import CartItem from "components/cart-item";
+import Button from "components/button";
+import NoItem from "./no-item";
+import ArrowLeft from "assets/icons/arrow-left";
+import { CURRENCY } from "helpers/constants";
+import CurrencyFormat from "react-currency-format";
+
+// <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>;
 
 export default function Cart() {
   const { dispatch } = useContext(DrawerContext);
@@ -16,7 +18,7 @@ export default function Cart() {
 
   const showCheckout = () => {
     dispatch({
-      type: 'TOGGLE_CHECKOUT_VIEW',
+      type: "TOGGLE_CHECKOUT_VIEW",
       payload: {
         showCheckout: true,
       },
@@ -25,15 +27,45 @@ export default function Cart() {
 
   const hideCart = () => {
     dispatch({
-      type: 'SLIDE_CART',
+      type: "SLIDE_CART",
       payload: {
         open: false,
       },
     });
   };
 
+  const order = () => {
+    const rzp_options = {
+      key: "rzp_test_s19lQbXBEki9AS",
+      amount: calculatePrice() * 100,
+      name: "Usha Handicrafts",
+      description: "",
+      handler: function (response) {
+        alert(`Payment Succesful ${response.razorpay_payment_id}`);
+      },
+      modal: {
+        ondismiss: function () {
+          alert(`Payment Failed`);
+        },
+      },
+      prefill: {
+        email: "test@email.com",
+        contact: +914455667788,
+      },
+
+      theme: {
+        color: "#000",
+      },
+    };
+    let rzp = new Razorpay(rzp_options);
+    rzp.open();
+  };
+
   return (
     <div className="flex flex-col w-full h-full">
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script src="https://fb.me/react-15.1.0.js"></script>
+      <script src="https://fb.me/react-dom-15.1.0.js"></script>
       {items.length ? (
         <>
           <div className="w-full flex justify-center flex-shrink-0 relative px-30px py-20px border-b border-gray-200">
@@ -72,20 +104,30 @@ export default function Cart() {
             {calculatePrice()} */}
             <CurrencyFormat
               value={calculatePrice()}
-              displayType={'text'}
+              displayType={"text"}
               thousandSeparator={true}
               prefix={CURRENCY}
             />
           </span>
         </div>
 
-        <Button
+        {/* <Button
           className="big flex-shrink-0"
           disabled={!items.length ? true : false}
           onClick={showCheckout}
         >
           Confirm
+        </Button> */}
+        <Button
+          className="big flex-shrink-0"
+          disabled={!items.length ? true : false}
+          onClick={order}
+        >
+          Confirm
         </Button>
+        {/* <button id="paymentclick" onClick={order}>
+          pay amount
+        </button> */}
       </div>
     </div>
   );
