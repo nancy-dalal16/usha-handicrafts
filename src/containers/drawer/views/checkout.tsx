@@ -31,6 +31,11 @@ export default function Checkout() {
   const [error, setError] = useState(null);
   const { items, calculatePrice, clearCart } = useCart();
 
+  // const [payment, setPayment] = useState(false);
+  const [orderId, setOrderId] = useState("");
+  const [payemntId, setPaymentId] = useState("");
+  const [signature, setSignature] = useState("");
+
   const hideCheckout = () => {
     dispatch({
       type: "TOGGLE_CHECKOUT_VIEW",
@@ -40,7 +45,42 @@ export default function Checkout() {
     });
   };
 
-  const submitOrder = async () => {
+  // const submitOrder = async () => {
+  //   const { name, email, address, postal_code, suite, phone_number } = formData;
+  //   if (!phone_number.trim()) {
+  //     setError({
+  //       field: "phone_number",
+  //       message: "Phone number is required",
+  //     });
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   const res = await fetch("/api/order", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       items: items,
+  //       address: `${name} ${address} ${postal_code} ${suite}`,
+  //       phone_number: phone_number,
+  //       email: email,
+  //       bill_amount: calculatePrice(),
+  //     }),
+  //   });
+
+  //   if (res.status === 200) {
+  //     setSuccess(true);
+  //     clearCart();
+  //     setLoading(false);
+  //   } else {
+  //     setError(true);
+  //   }
+  // };
+
+  const submitOrder = () => {
     const { name, email, address, postal_code, suite, phone_number } = formData;
     if (!phone_number.trim()) {
       setError({
@@ -50,42 +90,58 @@ export default function Checkout() {
       return;
     }
 
-    setLoading(true);
+    const options = {
+      key: "rzp_test_iZy9pDaZeEAkky", // Enter the Key ID generated from the Dashboard
+      amount: calculatePrice() * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "USHA HANDICRAFTS",
 
-    const res = await fetch("/api/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+      image: "https://example.com/your_logo",
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+        setPaymentId(response.razorpay_payment_id);
+
+        const res = fetch("/api/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            items: items,
+            address: `${name} ${address} ${postal_code} ${suite}`,
+            phone_number: phone_number,
+            email: email,
+            bill_amount: calculatePrice(),
+            payment_id: response.razorpay_payment_id,
+          }),
+        });
+        // setPayment(true);
+        if (response.status === 200) {
+          setSuccess(true);
+          clearCart();
+        } else {
+          setError(true);
+        }
       },
-      body: JSON.stringify({
-        items: items,
-        address: `${name} ${address} ${postal_code} ${suite}`,
-        phone_number: phone_number,
+
+      prefill: {
+        name: name,
         email: email,
-        bill_amount: calculatePrice(),
-      }),
-    });
+        contact: phone_number,
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#000",
+      },
+    };
 
-    // const res = await fetch(`/api/order`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     items: items,
-    //     address: `${name} ${address} ${postal_code} ${suite}`,
-    //     phone_number: phone_number,
-    //     email: email,
-    //     bill_amount: calculatePrice(),
-    //   }),
-    // });
-
-    if (res.status === 200) {
-      setSuccess(true);
-      clearCart();
-      setLoading(false);
-    } else {
-      setError(true);
-    }
+    var _window = window as any;
+    var rzp1 = new _window.Razorpay(options);
+    rzp1.open();
   };
 
   const onChange = (e) => {

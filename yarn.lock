@@ -5892,6 +5892,11 @@ raw-loader@^2.0.0:
     loader-utils "^1.1.0"
     schema-utils "^1.0.0"
 
+razorpay-checkout@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/razorpay-checkout/-/razorpay-checkout-1.0.4.tgz#4b88903191c1a5d41c268b43b8a2bcd8ff5869e7"
+  integrity sha512-AfVxQzsG1oWcah5zBbvuyXLjkkntLmG84N41tDNguq2OJgwxRoUSeH4CHoZedJmxIJyPkg9WhEzsErNUNfKd9Q==
+
 rc-collapse@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/rc-collapse/-/rc-collapse-3.1.1.tgz#2421d454e85781d1cf2f04f906918e0677d779e6"

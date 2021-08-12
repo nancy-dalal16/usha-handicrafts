@@ -27,7 +27,8 @@ async function createOrder(data) {
 export default async (req, res) => {
   const { method } = req;
   if (method === "POST") {
-    const { items, email, bill_amount, address, phone_number } = req.body;
+    const { items, email, bill_amount, address, phone_number, payment_id } =
+      req.body;
     try {
       await createOrder({
         items: items
@@ -37,6 +38,7 @@ export default async (req, res) => {
         phone_number,
         email,
         bill_amount,
+        payment_id,
       });
       // await sendMail('support@redq.io', email, 'Order Received By Medsy', {
       //   items,
