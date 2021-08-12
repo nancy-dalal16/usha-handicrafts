@@ -98,9 +98,9 @@ export default function Checkout() {
 
       image: "https://example.com/your_logo",
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
         setPaymentId(response.razorpay_payment_id);
 
         const res = fetch("/api/order", {
@@ -114,16 +114,13 @@ export default function Checkout() {
             phone_number: phone_number,
             email: email,
             bill_amount: calculatePrice(),
-            payment_id: response.razorpay_payment_id,
+            payment_id: payemntId,
           }),
         });
         // setPayment(true);
-        if (response.status === 200) {
-          setSuccess(true);
-          clearCart();
-        } else {
-          setError(true);
-        }
+
+        setSuccess(true);
+        clearCart();
       },
 
       prefill: {
@@ -174,7 +171,7 @@ export default function Checkout() {
               Contact Information
             </span>
             <NumberFormat
-              format="+1 (###) ###-####"
+              format="+91 #####-#####"
               mask="_"
               placeholder="Mobile Phone Number"
               className={`${InputBase} ${TextBoxCommonBase} ${TextBoxEnable}`}
