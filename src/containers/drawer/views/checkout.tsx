@@ -114,7 +114,7 @@ export default function Checkout() {
             phone_number: phone_number,
             email: email,
             bill_amount: calculatePrice(),
-            payment_id: payemntId,
+            payment_id: response.razorpay_payment_id,
           }),
         });
         // setPayment(true);
