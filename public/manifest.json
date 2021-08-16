@@ -45,7 +45,6 @@
       "purpose": "maskable"
     }
   ],
-
   "start_url": "/",
   "background_color": "#FFFFFF",
   "display": "standalone",

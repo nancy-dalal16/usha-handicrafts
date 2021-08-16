@@ -4,11 +4,7 @@ export default class extends Document {
   render() {
     return (
       <Html lang="en-US">
-        <Head>
-          <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/icon.png"></link>
-          <meta name="theme-color" content="#fff" />
-        </Head>
+        <Head>{/*   <link rel="manifest" href="/manifest.json" /> */}</Head>
         <body>
           <Main />
           <NextScript />
@@ -17,3 +13,6 @@ export default class extends Document {
     );
   }
 }
+`
+  
+`;

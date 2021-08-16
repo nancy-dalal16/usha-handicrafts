@@ -24,13 +24,12 @@ export default function Home({ products }) {
   return (
     <Layout>
       <Head>
+        <title>USHA HANDICRAFTS</title>
+        <link rel="manifest" href="/manifest.json" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
-
-        <link rel="manifest" href="/manifest.json" />
-        <title>USHA HANDICRAFTS</title>
       </Head>
 
       <HeroBlock />

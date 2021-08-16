@@ -6,7 +6,7 @@ module.exports = withPWA({
     dest: "public",
     disable: process.env.NODE_ENV === "development",
   },
-  reactStrictMode: "true",
+  reactStrictMode: true,
 });
 
 const { withPlugins } = require("next-compose-plugins");

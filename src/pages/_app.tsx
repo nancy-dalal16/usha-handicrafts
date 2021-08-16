@@ -1,18 +1,35 @@
-import React from 'react';
+import React from "react";
 // import 'react-spring-modal/dist/index.css';
-import 'rc-collapse/assets/index.css';
-import 'overlayscrollbars/css/OverlayScrollbars.css';
-import 'react-multi-carousel/lib/styles.css';
+import "rc-collapse/assets/index.css";
+import "overlayscrollbars/css/OverlayScrollbars.css";
+import "react-multi-carousel/lib/styles.css";
 
-import 'assets/styles/index.css';
-import { CartProvider } from 'contexts/cart/cart.provider';
+import "assets/styles/index.css";
+import { CartProvider } from "contexts/cart/cart.provider";
 // import { ModalProvider } from 'contexts/modal/modal.provider';
-import { DrawerProvider } from 'contexts/drawer/drawer.provider';
-import { StickyProvider } from 'contexts/sticky/sticky.provider';
-import { SearchProvider } from 'contexts/search/use-search';
-import 'typeface-open-sans';
-
+import { DrawerProvider } from "contexts/drawer/drawer.provider";
+import { StickyProvider } from "contexts/sticky/sticky.provider";
+import { SearchProvider } from "contexts/search/use-search";
+import "typeface-open-sans";
+import { useEffect } from "react";
 export default function CustomApp({ Component, pageProps }) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").then(
+          function (registration) {
+            console.log(
+              "Service Worker registration successful with scope: ",
+              registration.scope
+            );
+          },
+          function (err) {
+            console.log("Service Worker registration failed: ", err);
+          }
+        );
+      });
+    }
+  }, []);
   return (
     <SearchProvider>
       <StickyProvider>
