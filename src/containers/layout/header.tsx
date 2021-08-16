@@ -3,6 +3,8 @@ import Link from "next/link";
 import WhatsappIcon from "assets/icons/whatsapp-icon";
 import CartIcon from "assets/icons/cart-icon";
 import Logo from "assets/icons/logo";
+
+import LogoPic from "assets/icons/usha-handicrafts-logo.png";
 import Search from "components/search-outline";
 import { DrawerContext } from "contexts/drawer/drawer.provider";
 import { StickyContext } from "contexts/sticky/sticky.provider";
@@ -67,10 +69,11 @@ export default function Header() {
 
       <Link href="/">
         <a className="hidden mx-auto lg:mr-10 lg:flex">
-          <span className="sr-only">USHA HANDICRAFTS</span>
+          {/* <span className="sr-only">USHA HANDICRAFTS</span>
           <span>
             <h1 className="rainbow">USHA HANDICRAFTS </h1>
-          </span>
+          </span> */}
+          <img src={LogoPic} alt="hero-image" width="300px" />
           {/* <Logo width="110px" id="medsy-header-logo" /> */}
         </a>
       </Link>
@@ -85,7 +88,12 @@ export default function Header() {
 
       <div className="hidden items-center text-gray-900 mr-10 flex-shrink-0 lg:flex">
         <WhatsappIcon />
-        <Link href="https://api.whatsapp.com/send?phone=+911234567890&text=Hello">
+        {/* <Link href="https://api.whatsapp.com/send?phone=+911234567890&text=Hello"> */}
+        <Link
+          href=" https://api.whatsapp.com/send?text=Hey, Please open this website to buy this material at this price. www.xyz.com"
+          data-original-title="whatsapp"
+          data-placement="left"
+        >
           <a>
             <span className="font-semibold text-base text-14px ml-3">
               +91 12345 67890
