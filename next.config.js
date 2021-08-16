@@ -3,11 +3,9 @@
 const withPWA = require("next-pwa");
 module.exports = withPWA({
   pwa: {
-    // disable: !isProd,
     dest: "public",
-    register: true,
-    skipWaiting: true,
   },
+  reactStrictMode: "true",
 });
 
 const { withPlugins } = require("next-compose-plugins");
