@@ -35,7 +35,7 @@ export default function Home({ products }) {
       <HeroBlock />
       <HowItWorks />
       <Products items={products} ref={elRef} />
-      <InstagramReview />
+      {/* <InstagramReview /> */}
     </Layout>
   );
 }
