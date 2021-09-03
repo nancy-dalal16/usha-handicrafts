@@ -10,18 +10,28 @@ import { CartProvider } from "contexts/cart/cart.provider";
 import { DrawerProvider } from "contexts/drawer/drawer.provider";
 import { StickyProvider } from "contexts/sticky/sticky.provider";
 import { SearchProvider } from "contexts/search/use-search";
+import { useEffect } from "react";
 import "typeface-open-sans";
 export default function CustomApp({ Component, pageProps }) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").then(
+          function (registration) {
+            console.log(
+              "Service Worker registration successful with scope: ",
+              registration.scope
+            );
+          },
+          function (err) {
+            console.log("Service Worker registration failed: ", err);
+          }
+        );
+      });
+    }
+  }, []);
   return (
     <>
-      <Head>
-        <title>USHA HANDICRAFTS</title>
-        <link rel="manifest" href="/manifest.json" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
-      </Head>
       <SearchProvider>
         <StickyProvider>
           <DrawerProvider>

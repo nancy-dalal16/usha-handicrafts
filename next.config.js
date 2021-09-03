@@ -8,6 +8,7 @@ module.exports = withPWA({
     skipWaiting: true,
     disable: false,
   },
+  reactStrictMode: true,
 });
 
 const { withPlugins } = require("next-compose-plugins");

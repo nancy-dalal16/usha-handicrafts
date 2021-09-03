@@ -10,6 +10,23 @@ import { useSearch } from "contexts/search/use-search";
 import { getProducts } from "helpers/get-products";
 
 export default function Home({ products }) {
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").then(
+          function (registration) {
+            console.log(
+              "Service Worker registration successful with scope: ",
+              registration.scope
+            );
+          },
+          function (err) {
+            console.log("Service Worker registration failed: ", err);
+          }
+        );
+      });
+    }
+  }, []);
   const { elRef, scroll } = useRefScroll({
     percentOfElement: 0,
     percentOfContainer: 0,
@@ -25,11 +42,12 @@ export default function Home({ products }) {
     <Layout>
       <Head>
         <title>USHA HANDICRAFTS</title>
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
+        <link rel="manifest" href="/manifest.json" />
       </Head>
 
       <HeroBlock />
