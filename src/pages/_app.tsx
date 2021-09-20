@@ -12,7 +12,12 @@ import { StickyProvider } from "contexts/sticky/sticky.provider";
 import { SearchProvider } from "contexts/search/use-search";
 import { useEffect } from "react";
 import "typeface-open-sans";
+import { useRouter } from "next/router";
+import * as gtag from "../../lib/gtag";
+
 export default function CustomApp({ Component, pageProps }) {
+  const router = useRouter();
+
   useEffect(() => {
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", function () {
@@ -30,6 +35,16 @@ export default function CustomApp({ Component, pageProps }) {
       });
     }
   }, []);
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <>
